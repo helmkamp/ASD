@@ -8,41 +8,93 @@ Main Project
 <html>
 	<head>
 		<title></title>
-		<link rel="stylesheet" href="./css/jquery.mobile-1.3.0.min.css">
-		<link rel="stylesheet" href="./css/main.css">
-		<script src="./js/jquery-1.9.1.min.js"></script>
-		<script src="./js/jquery.mobile-1.3.0.min.js"></script>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/themes/custom.min.css">
+		<link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
+		<script src="js/libs/jquery-1.9.1.min.js"></script>
+		<script src="js/libs/jquery.mobile-1.3.1.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.min.js"></script>
 
 	</head>
 
 	<body>
 		<div id="main">
-			<section data-role="page" data-theme="e" id="homepage">
-				<header data-role="header">Home</header>
-				<p>This is the home page!</p>
+			<section data-role="page" data-theme="f" id="homepage">
+				<header data-role="header"><h1>Time Well Spent</h1></header>
+				<div data-role="content">
+					<div id="feature">
+						<a href="#addpage"><img src="img/feature.png" alt="Add Task"></a>
+					</div>
+					<div id="browseList">
+						<ul data-role="listview" data-inset="true">
+							<li data-role="list-divider" class="ui-bar-c">
+								Browse by...
+							</li>
+							<li><a href="#displaypage"/>All Items</a></li>
+							<li><a href="#browse-by?category=Start Date">Start Date</a></li>
+							<li><a href="#browse-by?category=End Date">End Date</a></li>
+							<li><span>Category</span>
+								<ul data-theme="c">
+									<li><a href="#browse-by?category=Work">Work</a></li>
+									<li><a href="#browse-by?category=School">School</a></li>
+									<li><a href="#browse-by?category=Personal">Personal</a></li>
+									<li data-icon="back"><a href="#homePage">Back</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</section>
 
-			<section data-role="page" id="addpage">
-				<header data-role="header">Add</header>
-				<form action="">
-					<fieldset>
-						<legend></legend>
-					</fieldset>
-				</form>
+			<section data-role="page" id="addpage" data-theme="f" data-add-back-btn="true">
+				<header data-role="header"><h1>Add Task Information</h1></header>
+				<div data-role="content">
+					<form action="" id="todoForm">
+						<fieldset>
+							<legend></legend>
+							<div data-role="fieldcontain">
+								<label for="start">Start Date*</label>
+								<input type="date" id="start" name="startDate" placeholder="MM/DD/YY" class="required">
+								<label for="end">End Date*</label>
+								<input type="date" id="end" name="endDate" placeholder="MM/DD/YY" class="required">
+								<label for="name">Item Name*</label>
+								<input type="text" id="name" name="itemName" placeholder="CRUD Project" class="required">
+								<fieldset data-role="controlgroup">
+									<legend>Category*</legend>
+									<input type="radio" name="category" id="catWork" value="Work">
+									<label for="catWork">Work</label>
+									<input type="radio" name="category" id="catSchool" value="School">
+									<label for="catSchool">School</label>
+									<input type="radio" name="category" id="catPersonal" value="Personal">
+									<label for="catPersonal">Personal</label>
+								</fieldset>
+								<label for="comments">Comments</label>
+								<textarea name="comments" id="comments" placeholder="Any additional information"></textarea>
+							</div>
+						</fieldset>
+						<button data-role="button" data-inline="true">Add Item</button> <a href="#">Cancel</a>
+					</form>
+				</div>
 			</section>
 
-			<section data-role="page" id="displaypage">
-				<header data-role="header"></header>
-				<ul>
+			<section data-role="page" id="displaypage" data-theme="f" data-add-back-btn="true">
+				<header data-role="header"><h1>All Items</h1> </header>
+				<ul id="items">
 					<li></li>
 					<li></li>
 					<li></li>
 					<li></li>
 				</ul>
+				<button data-role="button" data-inline="true" id="clearAll">Delete All</button>
 			</section>
 		</div>
 
-		<script src="./js/main.js"></script>
+		<script type="text/javascript" src="js/libs/jquery.validate.min.js"></script>
+		<script src="js/json.js"></script>
+		<script src="js/main.js"></script>
 	</body>
 	
 </html>
