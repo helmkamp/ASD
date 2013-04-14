@@ -13,10 +13,10 @@ Main Project
 		<link rel="stylesheet" href="css/themes/custom.min.css">
 		<link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css">
 		<link rel="stylesheet" href="css/main.css">
-		<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/jquery.mobile.simpledialog.min.css">
 		<script src="js/libs/jquery-1.9.1.min.js"></script>
 		<script src="js/libs/jquery.mobile-1.3.1.min.js"></script>
-		<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.min.js"></script>
+		<script type="text/javascript" src="js/libs/jquery.mobile.simpledialog2.min.js"></script>
 
 	</head>
 
@@ -49,7 +49,7 @@ Main Project
 				</div>
 			</section>
 
-			<section data-role="page" id="addpage" data-theme="f" data-add-back-btn="true">
+			<section data-role="page" id="addpage" data-theme="f">
 				<header data-role="header"><h1>Add Task Information</h1></header>
 				<div data-role="content">
 					<form action="" id="todoForm">
@@ -82,12 +82,22 @@ Main Project
 
 			<section data-role="page" id="displaypage" data-theme="f" data-add-back-btn="true">
 				<header data-role="header"><h1>All Items</h1> </header>
-				<ul id="items">
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
+				<script id="taskTemp" type="text/html">
+					
+						<li>
+							<h1>{{item}}</h1>
+							<p>Start Date: {{sDate}}</p>
+							<p>End Date: {{eDate}}</p>
+							<p>Category: {{cat}}</p>
+							<p>Comments: {{comm}}</p>
+						</li>
+					
+				</script>
+				<div data-role="content">
+					<ul data-role="listview" data-inset="true" id="list">
+						
+					</ul>
+				</div>
 				<button data-role="button" data-inline="true" id="clearAll">Delete All</button>
 			</section>
 		</div>
