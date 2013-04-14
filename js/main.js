@@ -12,11 +12,11 @@ var storeData = function(data, key) {
 		//Gather data from form and store in an object
 		//Object properties contain array with the form label and value
 		var item = {};
-		item.startDate = ["Start Date:", data[0].value];
-		item.endDate = ["End Date:", data[1].value];
-		item.itemName = ["Item Name:", data[2].value];
-		item.category = ["Category:", data[3].value];
-		item.comments = ["Comments:", data[4].value];
+		item.startDate = data[0].value;
+		item.endDate = data[1].value;
+		item.itemName = data[2].value;
+		item.category = data[3].value;
+		item.comments = data[4].value;
 
 		//Save data into local storage using Stringify
 		localStorage.setItem(id, JSON.stringify(item));
@@ -43,18 +43,32 @@ $('#addpage').on('pageinit', function () {
 });
 
 // Read
-$('#displaypage').on('pageinit', function () {
-	$('#items').html('<li>'+localStorage.length+'</li>');
-	for(var i = 0; i < localStorage.length; i++) {
-		var key = localStorage.key(i),
-			value = localStorage.getItem(key),
-			obj = $.parseJSON(value);
+$('#displaypage').on('pagecreate', function () {
+	var template = $.trim( $('#taskTemp').html() ),
+		frag = '';
+	// console.log(template);
 
-		console.log(obj);
-	}
+	$.each(localStorage, function(index, value) {
+
+		var obj = $.parseJSON(value),
+			key = localStorage.key(index);
+		console.log(key);
+		frag += template.replace( /{{item}}/i, obj.itemName )
+						.replace( /{{sDate}}/i, obj.startDate )
+						.replace( /{{eDate}}/i, obj.endDate )
+						.replace( /{{cat}}/i, obj.category )
+						.replace( /{{comm}}/i, obj.comments );
+	});
+
+	// console.log(frag);
+	$('#list').html(frag).listview();
+	$('#list').listview();
+
+
 	$('#clearAll').on('click', function () {
 		localStorage.clear();
-		refreshPage();
+		alert('Items deleted!');
+		
 	});
 });
 
@@ -82,10 +96,10 @@ function refreshPage() {
 
 var autofillData = function() {
 		//The JSON data used for this is in the json.js file
-		for(var n in json) {
+		$.each(json, function(index) {
 			var id = Math.floor(Math.random() * 1000000001);
-			localStorage.setItem(id, JSON.stringify(json[n]));
-		}
+			localStorage.setItem(id, JSON.stringify(json[index]));
+		});
 	};
 
 $('#homepage').on('pagebeforeshow', function() {
