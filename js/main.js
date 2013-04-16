@@ -2,6 +2,13 @@
 // ASD 1304
 // Main Project JS File
 
+//AJAX Setup
+$.ajaxSetup({
+	timeout: 10000,
+	error: function(err) {
+		console.log("Error ", err);
+	}
+});
 
 //-- CRUD --//
 // Create
@@ -68,7 +75,7 @@ $('#displaypage').on('pagecreate', function () {
 	$('#clearAll').on('click', function () {
 		localStorage.clear();
 		alert('Items deleted!');
-		
+
 	});
 });
 
@@ -94,11 +101,36 @@ function refreshPage() {
 	});
 }
 
-var autofillData = function() {
-		//The JSON data used for this is in the json.js file
-		$.each(json, function(index) {
-			var id = Math.floor(Math.random() * 1000000001);
-			localStorage.setItem(id, JSON.stringify(json[index]));
+var autofillJson = function() {
+		$.ajax({
+			url: 'xhr/data.json',
+			type: 'GET',
+			dataType: 'json',
+			success: function(response) {
+				console.log(response);
+				$.each(response.tasks, function(index) {
+					var id = Math.floor(Math.random() * 1000000001);
+					localStorage.setItem(id, JSON.stringify(response.tasks[index]));
+				});
+			}
+		});
+	};
+
+var autofillXml = function () {
+	$.ajax({
+			url: 'xhr/data.xml',
+			type: 'GET',
+			dataType: 'xml',
+			success: function(response) {
+				var $xmlDoc = $(response),
+					xmlData = $xmlDoc.find('tasks').text();
+
+				console.log(response.getElementsByTagName('startDate')[0].childNodes[0].nodeValue);
+				// $.each(response.tasks, function(index) {
+				// 	var id = Math.floor(Math.random() * 1000000001);
+				// 	localStorage.setItem(id, JSON.stringify(response.tasks[index]));
+				// });
+			}
 		});
 	};
 
@@ -110,8 +142,12 @@ $('#homepage').on('pagebeforeshow', function() {
 			zindex: 1000,
 			buttonPrompt: 'You have nothing to do. Would you like to load sample data?',
 			buttons : {
-				'OK': { click: function () {
-						autofillData();
+				'Load JSON Data': { click: function () {
+						autofillJson();
+					}
+				},
+				'Load XML Data': { click: function () {
+						autofillXml();
 					}
 				},
 				'Cancel': { click: function () {

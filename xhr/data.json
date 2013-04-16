@@ -1,0 +1,74 @@
+{
+    "tasks" : [
+        {
+            "startDate": "2012-12-05",
+            "endDate": "2012-12-06",
+            "itemName": "Assignment 1: Project",
+            "category": "School",
+            "comments": "Create new index page"
+        },
+        {
+            "startDate": "2012-12-05",
+            "endDate": "2012-12-05",
+            "itemName": "SBE Meeting",
+            "category": "Work",
+            "comments": "Location: Rockers @ 0900"
+        },
+        {
+            "startDate": "2012-12-06",
+            "endDate": "2012-12-06",
+            "itemName": "Grocery Shopping",
+            "category": "Personal",
+            "comments": "List in AllRecipes app"
+        },
+        {
+            "startDate": "2013-01-09",
+            "endDate": "2013-01-11",
+            "itemName": "EET Training",
+            "category": "Work",
+            "comments": "CBT on ADLS"
+        },
+        {
+            "startDate": "2013-01-09",
+            "endDate": "2013-01-11",
+            "itemName": "Exercise Planning",
+            "category": "Work",
+            "comments": "Create injects for PA players"
+        },
+        {
+            "startDate": "2013-01-07",
+            "endDate": "2013-01-10",
+            "itemName": "Reading Assignment",
+            "category": "School",
+            "comments": "Read pages 30-33 in textbook"
+        },
+        {
+            "startDate": "2013-01-10",
+            "endDate": "2013-01-11",
+            "itemName": "Move Office",
+            "category": "Work",
+            "comments": "None"
+        },
+        {
+            "startDate": "2013-01-21",
+            "endDate": "2013-01-21",
+            "itemName": "PA NCO Meeting",
+            "category": "Work",
+            "comments": "Meet with section leads about new assignment flow"
+        },
+        {
+            "startDate": "2013-01-13",
+            "endDate": "2013-01-19",
+            "itemName": "Exercise",
+            "category": "Work",
+            "comments": "VERY LONG WEEK"
+        },
+        {
+            "startDate": "2013-01-09",
+            "endDate": "2013-01-09",
+            "itemName": "Register w/ TriCare",
+            "category": "Personal",
+            "comments": "None"
+        }
+    ]
+}
