@@ -116,20 +116,18 @@ var autofillJson = function() {
 		});
 	};
 
-var autofillXml = function () {
+var autofillYaml = function () {
 	$.ajax({
-			url: 'xhr/data.xml',
+			url: 'xhr/data.yaml',
 			type: 'GET',
-			dataType: 'xml',
+			dataType: 'text',
 			success: function(response) {
-				var $xmlDoc = $(response),
-					xmlData = $xmlDoc.find('tasks').text();
-
-				console.log(response.getElementsByTagName('startDate')[0].childNodes[0].nodeValue);
-				// $.each(response.tasks, function(index) {
-				// 	var id = Math.floor(Math.random() * 1000000001);
-				// 	localStorage.setItem(id, JSON.stringify(response.tasks[index]));
-				// });
+				var doc = jsyaml.load(response);
+				console.log(doc.tasks);
+				$.each(doc.tasks, function(index) {
+					var id = Math.floor(Math.random() * 1000000001);
+					localStorage.setItem(id, JSON.stringify(doc.tasks[index]));
+				});
 			}
 		});
 	};
@@ -146,8 +144,8 @@ $('#homepage').on('pagebeforeshow', function() {
 						autofillJson();
 					}
 				},
-				'Load XML Data': { click: function () {
-						autofillXml();
+				'Load YAML Data': { click: function () {
+						autofillYaml();
 					}
 				},
 				'Cancel': { click: function () {
