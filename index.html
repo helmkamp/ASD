@@ -16,41 +16,59 @@ Main Project
 		<link rel="stylesheet" href="css/jquery.mobile.simpledialog.min.css">
 		<script src="js/libs/jquery-1.9.1.min.js"></script>
 		<script src="js/libs/jquery.mobile-1.3.1.min.js"></script>
-		<script type="text/javascript" src="js/libs/jquery.mobile.simpledialog2.min.js"></script>
+		<script src="js/libs/jquery.mobile.simpledialog2.min.js"></script>
 
 	</head>
 
 	<body>
 		<div id="main">
 			<section data-role="page" data-theme="f" id="homepage">
-				<header data-role="header"><h1>Time Well Spent</h1></header>
+				<div data-role="panel" id="infoPanel" data-position="left" data-theme="f">
+					<ul data-role="listview" data-inset="true">
+						<li data-role="list-divider">Credits</li>
+						<li><a href="http://www.IconDrawer.com" data-ajax="false"><p>Calander image by Eugen Buzuk</p></a></li>
+						<li><a href="http://www.freeiconsweb.com/Free-Downloads.asp?id=1099" data-ajax="false"><p>All other icons where created<br /> based on the <strong>Pretty Office Icon<br /> Sets</strong> found at Free Icons Web</p></a></li>
+						<li data-role="list-divider">App Creator</li>
+						<li><a href="mailto:helmy@threebeersaday.com">Andrew Helmkamp</a></li>
+					</ul>
+					<br />
+					<a href="#homeHeader" data-rel="close" data-role="button" data-mini="true" data-inline="true">Close</a>
+				</div>
+				<header data-role="header" id="homeHeader">
+					<h1>Time Well Spent</h1>
+					<a href="#infoPanel" data-role="button" data-iconpos="notext" data-mini="true" data-icon="info">Info</a>
+					<img src="./img/logo.png"  class="ui-btn-right">
+				</header>
 				<div data-role="content">
 					<div id="feature">
 						<a href="#addpage"><img src="img/feature.png" alt="Add Task"></a>
 					</div>
 					<div id="browseList">
 						<ul data-role="listview" data-inset="true">
-							<li data-role="list-divider" class="ui-bar-c">
+							<li data-role="list-divider" class="ui-bar-f">
 								Browse by...
 							</li>
-							<li><a href="#displaypage"/>All Items</a></li>
+							<li><a href="#browse-by?category=All Tasks"/>All Tasks</a></li>
 							<li><a href="#browse-by?category=Start Date">Start Date</a></li>
 							<li><a href="#browse-by?category=End Date">End Date</a></li>
 							<li><span>Category</span>
-								<ul data-theme="c">
+								<ul data-theme="f">
 									<li><a href="#browse-by?category=Work">Work</a></li>
 									<li><a href="#browse-by?category=School">School</a></li>
 									<li><a href="#browse-by?category=Personal">Personal</a></li>
-									<li data-icon="back"><a href="#homePage">Back</a></li>
+									<li data-icon="back"><a href="#homepage">Back</a></li>
 								</ul>
 							</li>
 						</ul>
 					</div>
 				</div>
-			</section>
+			</section> <!--End Home Page-->
 
-			<section data-role="page" id="addpage" data-theme="f">
-				<header data-role="header"><h1>Add Task Information</h1></header>
+			<section data-role="page" id="addpage" data-theme="f" data-add-back-btn="true">
+				<header data-role="header">
+					<h1>Task Information</h1>
+					<img src="./img/logo.png" class="ui-btn-right">
+				</header>
 				<div data-role="content">
 					<form action="" id="todoForm">
 						<fieldset>
@@ -62,7 +80,7 @@ Main Project
 								<input type="date" id="end" name="endDate" placeholder="MM/DD/YY" class="required">
 								<label for="name">Item Name*</label>
 								<input type="text" id="name" name="itemName" placeholder="CRUD Project" class="required">
-								<fieldset data-role="controlgroup">
+								<fieldset data-role="controlgroup" data-type="horizontal">
 									<legend>Category*</legend>
 									<input type="radio" name="category" id="catWork" value="Work">
 									<label for="catWork">Work</label>
@@ -73,40 +91,41 @@ Main Project
 								</fieldset>
 								<label for="comments">Comments</label>
 								<textarea name="comments" id="comments" placeholder="Any additional information"></textarea>
+								<input type="hidden" value="" id="hiddenKey" />
 							</div>
 						</fieldset>
-						<button data-role="button" data-inline="true">Add Item</button> <a href="#">Cancel</a>
+						<div class="ui-grid-a">
+							<div class="ui-block-a"><input type="submit" value="Save Item" id="submit" data-theme="e"/></div>
+							<div class="ui-block-b"><input type="reset" value="Reset" id="reset" data-theme="a"/></div>
+						</div>
 					</form>
 				</div>
-			</section>
+			</section> <!--End Add Page-->
 
-			<section data-role="page" id="displaypage" data-theme="f" data-add-back-btn="true">
-				<header data-role="header"><h1>All Items</h1> </header>
-				<script id="taskTemp" type="text/html">
-					
-						<li>
-							<h1>{{item}}</h1>
-							<p>Start Date: {{sDate}}</p>
-							<p>End Date: {{eDate}}</p>
-							<p>Category: {{cat}}</p>
-							<p>Comments: {{comm}}</p>
-						</li>
-					
-				</script>
-				<div data-role="content">
-					<ul data-role="listview" data-inset="true" id="list">
-						
-					</ul>
+			
+			<section id="editItem" data-role="page" data-theme="f" data-add-back-btn="true">
+			</section><!-- End Edit Item -->
+
+			<section data-role="page" data-theme="f" id="browse-by" data-add-back-btn="true">
+				<header data-role="header">
+					<h1></h1>
+					<img src="./img/logo.png" class="ui-btn-right">
+				</header>
+				<div id="clearAllDiv">
+					<a href='#' data-role='button' data-icon='delete' data-iconpos='right' id='deleteAll'>Clear All Data</a>
 				</div>
-				<button data-role="button" data-inline="true" id="clearAll">Delete All</button>
-			</section>
+				<div data-role="content" id="newsContent">
+					<!-- Dynamic Content Area -->
+				</div>
+			</section> <!--End Browse-by Page-->
+
+			
 		</div>
 
 		<script src="js/libs/js-yaml.js"></script>
 		<script src="js/libs/jquery.validate.min.js"></script>
+		<script src="js/browseByCategory.js"></script>
 		<script src="js/main.js"></script>
 	</body>
-	
-</html>body>
 	
 </html>

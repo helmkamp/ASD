@@ -13,12 +13,14 @@ $.ajaxSetup({
 //-- CRUD --//
 // Create
 var storeData = function(data, key) {
+	console.log(key);
 		var id = typeof key !== 'undefined' ? key : Math.floor(Math.random() * 1000000001);
-		data[4].value = typeof data[4].value !== 'undefined' ? data[4].value : "";
+		data[4].value = typeof data[4].value !== 'undefined' ? data[4].value : " ";
 
 		//Gather data from form and store in an object
 		//Object properties contain array with the form label and value
 		var item = {};
+
 		item.startDate = data[0].value;
 		item.endDate = data[1].value;
 		item.itemName = data[2].value;
@@ -36,69 +38,97 @@ var storeData = function(data, key) {
 				"<a rel='close' data-role='button' href='#'>Close</a>",
 			callbackClose: refreshPage
 		});
+
 	};
 
 $('#addpage').on('pageinit', function () {
-	var myForm = $('#todoForm');
+	var myForm = $('#todoForm'),
+		key = $('#hiddenKey').val();
+		console.log(key);
+
 	myForm.validate({
 		invalidHandler: function(form, validator) {},
 		submitHandler: function() {
 			var data = myForm.serializeArray();
-			storeData(data);
+			storeData(data, key);
+			console.log(key+": "+data);
 		}
 	});
 });
 
-// Read
-$('#displaypage').on('pagecreate', function () {
-	var template = $.trim( $('#taskTemp').html() ),
-		frag = '';
-	// console.log(template);
+//Read functionality is in browseByCategory.js
 
-	$.each(localStorage, function(index, value) {
+// Listen for any attempts to call changePage() for edit and delete.
+$(document).on("pagebeforechange", function(e, data) {
+	if(typeof data.toPage === "string") {
+		var u = $.mobile.path.parseUrl(data.toPage),
+			re = /^#delItem/,
+			reTwo = /^#editItem/;
 
-		var obj = $.parseJSON(value),
-			key = localStorage.key(index);
-		console.log(key);
-		frag += template.replace( /{{item}}/i, obj.itemName )
-						.replace( /{{sDate}}/i, obj.startDate )
-						.replace( /{{eDate}}/i, obj.endDate )
-						.replace( /{{cat}}/i, obj.category )
-						.replace( /{{comm}}/i, obj.comments );
-	});
-
-	// console.log(frag);
-	$('#list').html(frag).listview();
-	$('#list').listview();
-
-
-	$('#clearAll').on('click', function () {
-		localStorage.clear();
-		alert('Items deleted!');
-
-	});
+		if(u.hash.search(re) !== -1) {
+			deleteItem(u, data.options);
+			e.preventDefault();
+		}
+		if(u.hash.search(reTwo) !== -1) {
+			editItem(u, data.options);
+			e.preventDefault();
+		}
+	}
 });
 
 // Update
+var editItem = function(urlObj, options) {
 
+		var itemKey = urlObj.hash.replace(/.*edit=/, ""),
+			pageSelector = urlObj.hash.replace(/\?.*$/, ""),
+			//Get data from our item from local storage
+			value = localStorage.getItem(itemKey),
+			item = JSON.parse(value);
+			//console.log(item);
+		//populate with current values
+		$('#start').val(item.startDate);
+		$('#end').val(item.endDate);
+		$('#name').val(item.itemName);
+		$('input[name="category"][value="'+item.category+'"]').prop('checked', true);
+		$('#comments').val(item.comments);
+		$('#hiddenKey').val(itemKey);
+
+		$.mobile.changePage($('#addpage'));
+	};
 
 
 // Delete
-
+var deleteItem = function(urlObj, options) {
+		var itemKey = urlObj.hash.replace(/.*delete=/, ""),
+			pageSelector = urlObj.hash.replace(/\?.*$/, "");
+		$('<div>').simpledialog2({
+			mode: 'button',
+			headerText: 'Delete Task',
+			zindex: 1000,
+			buttonPrompt: "<ul data-role='listview'><li><img src='img/warning.png' />Are you sure you want to delete this task?</li>",
+			buttons : {
+				'OK': { click: function () {
+						localStorage.removeItem(itemKey);
+						refreshPage();
+					}
+				},
+				'Cancel': { click: function () {
+						this.close();
+						refreshPage();
+					},
+					icon: "delete",
+					theme: "c"
+				}
+			}
+		});
+	};
 
 
 //-- End CRUD --//
 
-// This function was created by Scott W. Bradley
-// http://scottwb.com/blog/2012/06/29/reload-the-same-page-without-blinking-on-jquery-mobile/
+
 function refreshPage() {
-	$.mobile.changePage(
-	window.location.href, {
-		allowSamePageTransition: true,
-		transition: 'none',
-		showLoadMsg: false,
-		reloadPage: true
-	});
+	$.mobile.changePage($('#homepage'));
 }
 
 var autofillJson = function() {
@@ -107,7 +137,7 @@ var autofillJson = function() {
 			type: 'GET',
 			dataType: 'json',
 			success: function(response) {
-				console.log(response);
+
 				$.each(response.tasks, function(index) {
 					var id = Math.floor(Math.random() * 1000000001);
 					localStorage.setItem(id, JSON.stringify(response.tasks[index]));
@@ -123,7 +153,7 @@ var autofillYaml = function () {
 			dataType: 'text',
 			success: function(response) {
 				var doc = jsyaml.load(response);
-				console.log(doc.tasks);
+
 				$.each(doc.tasks, function(index) {
 					var id = Math.floor(Math.random() * 1000000001);
 					localStorage.setItem(id, JSON.stringify(doc.tasks[index]));
@@ -157,5 +187,36 @@ $('#homepage').on('pagebeforeshow', function() {
 			}
 		});
 	}
+});
+
+$('#browse-by').on('pageinit', function() {
+
+	$('#deleteAll').on('click', function() {
+		$('<div>').simpledialog2({
+			mode: 'button',
+			headerText: 'Delete All',
+			zindex: 1000,
+			buttonPrompt: "<ul data-role='listview'><li><img src='./img/warning.png' />Are you sure you want to delete all tasks?</li>",
+			buttons : {
+				'OK': { click: function () {
+						localStorage.clear();
+						refreshPage();
+					}
+				},
+				'Cancel': { click: function () {
+						this.close();
+						refreshPage();
+					},
+					icon: "delete",
+					theme: "c"
+				}
+			}
+		});
+	});
+});
+
+$('#reset').on('click', function () {
+	$('#todoForm').find('input:text, input:hidden, textarea').val('');
+    $('#todoForm').find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
 });
 
