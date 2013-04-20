@@ -7,7 +7,7 @@ Main Project
 
 <html>
 	<head>
-		<title></title>
+		<title>Time Manager</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/themes/custom.min.css">
@@ -29,8 +29,7 @@ Main Project
 						<li><a href="http://www.IconDrawer.com" data-ajax="false"><p>Calander image by Eugen Buzuk</p></a></li>
 						<li><a href="http://www.freeiconsweb.com/Free-Downloads.asp?id=1099" data-ajax="false"><p>All other icons where created<br /> based on the <strong>Pretty Office Icon<br /> Sets</strong> found at Free Icons Web</p></a></li>
 						<li data-role="list-divider">App Creator</li>
-						<li><a href="#">Andrew Helmkamp</a></li>
-						<li><a href="https://helmkamp.cloudant.com/tasks/_design/tm/index.html">Cloudant App</a></li>
+						<li><a href="mailto:helmy@threebeersaday.com">Andrew Helmkamp</a></li>
 					</ul>
 					<br />
 					<a href="#homeHeader" data-rel="close" data-role="button" data-mini="true" data-inline="true">Close</a>
@@ -49,14 +48,15 @@ Main Project
 							<li data-role="list-divider" class="ui-bar-f">
 								Browse by...
 							</li>
-							<li><a href="#browse-by?category=All Tasks"/>All Tasks</a></li>
+							<li><a href="#display">Show All</a></li>
+							<!-- <li><a href="#browse-by?category=All Tasks"/>All Tasks</a></li>
 							<li><a href="#browse-by?category=Start Date">Start Date</a></li>
-							<li><a href="#browse-by?category=End Date">End Date</a></li>
+							<li><a href="#browse-by?category=End Date">End Date</a></li> -->
 							<li><span>Category</span>
 								<ul data-theme="f">
-									<li><a href="#browse-by?category=Work">Work</a></li>
-									<li><a href="#browse-by?category=School">School</a></li>
-									<li><a href="#browse-by?category=Personal">Personal</a></li>
+									<li><a href="#displayWork">Work</a></li>
+									<!-- <li><a href="#browse-by?category=School">School</a></li>
+									<li><a href="#browse-by?category=Personal">Personal</a></li> -->
 									<li data-icon="back"><a href="#homepage">Back</a></li>
 								</ul>
 							</li>
@@ -120,6 +120,29 @@ Main Project
 				</div>
 			</section> <!--End Browse-by Page-->
 
+			<section data-role="page" data-theme="f" id="display" data-add-back-btn="true">
+				<header data-role="header">
+					<h1>All Tasks</h1>
+					<img src="./img/logo.png" class="ui-btn-right">
+				</header>
+				<div data-role="content" id="taskList">
+					<ul id="list" data-role="listview" data-inset="true">
+						
+					</ul>
+				</div>
+			</section> <!--End Display Page-->
+
+			<section data-role="page" data-theme="f" id="displayWork" data-add-back-btn="true">
+				<header data-role="header">
+					<h1>Work Tasks</h1>
+					<img src="./img/logo.png" class="ui-btn-right">
+				</header>
+				<div data-role="content" id="workTaskList">
+					<ul id="listWork" data-role="listview" data-inset="true">
+						
+					</ul>
+				</div>
+			</section> <!--End Display Work Page-->
 			
 		</div>
 
