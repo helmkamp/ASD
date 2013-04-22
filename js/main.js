@@ -14,32 +14,32 @@ $.ajaxSetup({
 // Create
 var storeData = function(data, key) {
 	console.log(key);
-		var id = typeof key !== 'undefined' ? key : Math.floor(Math.random() * 1000000001);
-		data[4].value = typeof data[4].value !== 'undefined' ? data[4].value : " ";
+    var id = typeof key !== 'undefined' ? key : Math.floor(Math.random() * 1000000001);
+    data[4].value = typeof data[4].value !== 'undefined' ? data[4].value : " ";
 
-		//Gather data from form and store in an object
-		//Object properties contain array with the form label and value
-		var item = {};
+    //Gather data from form and store in an object
+    //Object properties contain array with the form label and value
+    var item = {};
 
-		item.startDate = data[0].value;
-		item.endDate = data[1].value;
-		item.itemName = data[2].value;
-		item.category = data[3].value;
-		item.comments = data[4].value;
+    item.startDate = data[0].value;
+    item.endDate = data[1].value;
+    item.itemName = data[2].value;
+    item.category = data[3].value;
+    item.comments = data[4].value;
 
-		//Save data into local storage using Stringify
-		localStorage.setItem(id, JSON.stringify(item));
-		$('<div>').simpledialog2({
-			mode: 'blank',
-			headerText: 'Task Saved',
-			zindex: 1000,
-			blankContent :
-				"<ul data-role='listview'><li>The task has been saved successfully!</li>"+
-				"<a rel='close' data-role='button' href='#'>Close</a>",
-			callbackClose: refreshPage
-		});
+    //Save data into local storage using Stringify
+    localStorage.setItem(id, JSON.stringify(item));
+    $('<div>').simpledialog2({
+        mode: 'blank',
+        headerText: 'Task Saved',
+        zindex: 1000,
+        blankContent :
+            "<ul data-role='listview'><li>The task has been saved successfully!</li>"+
+            "<a rel='close' data-role='button' href='#'>Close</a>",
+        callbackClose: refreshPage
+    });
 
-	};
+};
 
 $('#addpage').on('pageinit', function () {
 	var myForm = $('#todoForm'),
@@ -79,49 +79,49 @@ $(document).on("pagebeforechange", function(e, data) {
 // Update
 var editItem = function(urlObj, options) {
 
-		var itemKey = urlObj.hash.replace(/.*edit=/, ""),
-			pageSelector = urlObj.hash.replace(/\?.*$/, ""),
-			//Get data from our item from local storage
-			value = localStorage.getItem(itemKey),
-			item = JSON.parse(value);
-			//console.log(item);
-		//populate with current values
-		$('#start').val(item.startDate);
-		$('#end').val(item.endDate);
-		$('#name').val(item.itemName);
-		$('input[name="category"][value="'+item.category+'"]').prop('checked', true);
-		$('#comments').val(item.comments);
-		$('#hiddenKey').val(itemKey);
+    var itemKey = urlObj.hash.replace(/.*edit=/, ""),
+        pageSelector = urlObj.hash.replace(/\?.*$/, ""),
+        //Get data from our item from local storage
+        value = localStorage.getItem(itemKey),
+        item = JSON.parse(value);
+        //console.log(item);
+    //populate with current values
+    $('#start').val(item.startDate);
+    $('#end').val(item.endDate);
+    $('#name').val(item.itemName);
+    $('input[name="category"][value="'+item.category+'"]').prop('checked', true);
+    $('#comments').val(item.comments);
+    $('#hiddenKey').val(itemKey);
 
-		$.mobile.changePage($('#addpage'));
-	};
+    $.mobile.changePage($('#addpage'));
+};
 
 
 // Delete
 var deleteItem = function(urlObj, options) {
-		var itemKey = urlObj.hash.replace(/.*delete=/, ""),
-			pageSelector = urlObj.hash.replace(/\?.*$/, "");
-		$('<div>').simpledialog2({
-			mode: 'button',
-			headerText: 'Delete Task',
-			zindex: 1000,
-			buttonPrompt: "<ul data-role='listview'><li><img src='img/warning.png' />Are you sure you want to delete this task?</li>",
-			buttons : {
-				'OK': { click: function () {
-						localStorage.removeItem(itemKey);
-						refreshPage();
-					}
-				},
-				'Cancel': { click: function () {
-						this.close();
-						refreshPage();
-					},
-					icon: "delete",
-					theme: "c"
-				}
-			}
-		});
-	};
+    var itemKey = urlObj.hash.replace(/.*delete=/, ""),
+        pageSelector = urlObj.hash.replace(/\?.*$/, "");
+    $('<div>').simpledialog2({
+        mode: 'button',
+        headerText: 'Delete Task',
+        zindex: 1000,
+        buttonPrompt: "<ul data-role='listview'><li><img src='img/warning.png' />Are you sure you want to delete this task?</li>",
+        buttons : {
+            'OK': { click: function () {
+                    localStorage.removeItem(itemKey);
+                    refreshPage();
+                }
+            },
+            'Cancel': { click: function () {
+                    this.close();
+                    refreshPage();
+                },
+                icon: "delete",
+                theme: "c"
+            }
+        }
+    });
+};
 
 
 //-- End CRUD --//
