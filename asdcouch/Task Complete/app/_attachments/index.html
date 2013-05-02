@@ -48,15 +48,14 @@ Main Project
 							<li data-role="list-divider" class="ui-bar-f">
 								Browse by...
 							</li>
-							<li><a href="display.html?tasks=tasks">Show All</a></li>
-							<!-- <li><a href="#browse-by?category=All Tasks"/>All Tasks</a></li>
-							<li><a href="#browse-by?category=Start Date">Start Date</a></li>
-							<li><a href="#browse-by?category=End Date">End Date</a></li> -->
+							<li><a href="display.html?viewCategory=tasks">Show All</a></li>
+							<li><a href="display.html?viewCategory=start_date">Start Date</a></li>
+							<li><a href="display.html?viewCategory=end_date">End Date</a></li>
 							<li><span>Category</span>
 								<ul data-theme="f">
-									<li><a href="#displayWork">Work</a></li>
-									<!-- <li><a href="#browse-by?category=School">School</a></li>
-									<li><a href="#browse-by?category=Personal">Personal</a></li> -->
+									<li><a href="display.html?viewCategory=work">Work</a></li>
+									<li><a href="display.html?viewCategory=school">School</a></li>
+									<li><a href="display.html?viewCategory=personal">Personal</a></li>
 									<li data-icon="back"><a href="#homepage">Back</a></li>
 								</ul>
 							</li>
@@ -106,30 +105,6 @@ Main Project
 			
 			<section id="editItem" data-role="page" data-theme="f" data-add-back-btn="true">
 			</section><!-- End Edit Item -->
-
-			<!-- <section data-role="page" data-theme="f" id="display" data-add-back-btn="true">
-				<header data-role="header">
-					<h1>All Tasks</h1>
-					<img src="./img/logo.png" class="ui-btn-right">
-				</header>
-				<div data-role="content" id="taskList">
-					<ul id="list" data-role="listview" data-inset="true">
-						
-					</ul>
-				</div>
-			</section> --> <!-- End Display Page -->
-
-			<section data-role="page" data-theme="f" id="displayWork" data-add-back-btn="true">
-				<header data-role="header">
-					<h1>Work Tasks</h1>
-					<img src="./img/logo.png" class="ui-btn-right">
-				</header>
-				<div data-role="content" id="workTaskList">
-					<ul id="listWork" data-role="listview" data-inset="true">
-						
-					</ul>
-				</div>
-			</section> <!--End Display Work Page-->
 		</div>
 		<script src="js/libs/jquery.validate.min.js"></script>
 		<script src="js/main.js"></script>

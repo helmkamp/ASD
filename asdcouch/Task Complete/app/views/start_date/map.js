@@ -1,6 +1,6 @@
 function (doc) {
-	if ((doc._id.substr(0,5) === "task_") && (doc.category.substr(0,4) === "Work")) {
-		emit(doc._id, {
+	if ((doc._id.substr(0,5) === "task_") && (doc.startDate)) {
+		emit(doc.startDate, {
 			"id": doc._id,
 			"rev": doc._rev,
 			"itemName": doc.itemName,
