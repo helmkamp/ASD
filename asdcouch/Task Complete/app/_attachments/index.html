@@ -41,21 +41,21 @@ Main Project
 				</header>
 				<div data-role="content">
 					<div id="feature">
-						<a href="#addpage"><img src="img/feature.png" alt="Add Task"></a>
+						<a href="display.html"><img src="img/feature.png" alt="Add Task"></a>
 					</div>
 					<div id="browseList">
 						<ul data-role="listview" data-inset="true">
 							<li data-role="list-divider" class="ui-bar-f">
 								Browse by...
 							</li>
-							<li><a href="display.html?viewCategory=tasks">Show All</a></li>
-							<li><a href="display.html?viewCategory=start_date">Start Date</a></li>
-							<li><a href="display.html?viewCategory=end_date">End Date</a></li>
+							<li><a href="#display?viewCategory=tasks">Show All</a></li>
+							<li><a href="#display?viewCategory=start_date">Start Date</a></li>
+							<li><a href="#display?viewCategory=end_date">End Date</a></li>
 							<li><span>Category</span>
 								<ul data-theme="f">
-									<li><a href="display.html?viewCategory=work">Work</a></li>
-									<li><a href="display.html?viewCategory=school">School</a></li>
-									<li><a href="display.html?viewCategory=personal">Personal</a></li>
+									<li><a href="#display?viewCategory=work">Work</a></li>
+									<li><a href="#display?viewCategory=school">School</a></li>
+									<li><a href="#display?viewCategory=personal">Personal</a></li>
 									<li data-icon="back"><a href="#homepage">Back</a></li>
 								</ul>
 							</li>
@@ -64,7 +64,7 @@ Main Project
 				</div>
 			</section> <!--End Home Page-->
 
-			<section data-role="page" id="addpage" data-theme="f" data-add-back-btn="true">
+<!-- 			<section data-role="page" id="addpage" data-theme="f" data-add-back-btn="true">
 				<header data-role="header">
 					<h1>Task Information</h1>
 					<img src="./img/logo.png" class="ui-btn-right">
@@ -100,11 +100,23 @@ Main Project
 						</div>
 					</form>
 				</div>
-			</section> <!--End Add Page-->
+			</section> --> <!--End Add Page-->
 
 			
 			<section id="editItem" data-role="page" data-theme="f" data-add-back-btn="true">
 			</section><!-- End Edit Item -->
+
+			<section data-role="page" data-theme="f" id="display" data-add-back-btn="true">
+				<header data-role="header">
+					<h1>Task Browser</h1>
+					<img src="img/logo.png" class="ui-btn-right">
+				</header>
+				<div data-role="content" id="taskList">
+					<ul id="list" data-role="listview" data-inset="true">
+						<!-- Task List -->
+					</ul>
+				</div>
+			</section>
 		</div>
 		<script src="js/libs/jquery.validate.min.js"></script>
 		<script src="js/main.js"></script>

@@ -12,15 +12,40 @@ Display Page
 	</head>
 
 	<body>
-		<section data-role="page" data-theme="f" id="display" data-add-back-btn="true">
+		<section data-role="page" id="editpage" data-theme="f" data-add-back-btn="true">
 			<header data-role="header">
-				<h1>Task Browser</h1>
-				<img src="img/logo.png" class="ui-btn-right">
+				<h1>Task Information</h1>
+				<img src="./img/logo.png" class="ui-btn-right">
 			</header>
-			<div data-role="content" id="taskList">
-				<ul id="list" data-role="listview" data-inset="true">
-					<!-- Task Info -->
-				</ul>
+			<div data-role="content">
+				<form action="" id="todoForm">
+					<fieldset>
+						<legend></legend>
+						<div data-role="fieldcontain">
+							<label for="start">Start Date*</label>
+							<input type="date" id="start" name="startDate" placeholder="MM/DD/YY" class="required">
+							<label for="end">End Date*</label>
+							<input type="date" id="end" name="endDate" placeholder="MM/DD/YY" class="required">
+							<label for="name">Item Name*</label>
+							<input type="text" id="name" name="itemName" placeholder="CRUD Project" class="required">
+							<fieldset data-role="controlgroup" data-type="horizontal">
+								<legend>Category*</legend>
+								<input type="radio" name="category" id="catWork" value="Work">
+								<label for="catWork">Work</label>
+								<input type="radio" name="category" id="catSchool" value="School">
+								<label for="catSchool">School</label>
+								<input type="radio" name="category" id="catPersonal" value="Personal">
+								<label for="catPersonal">Personal</label>
+							</fieldset>
+							<label for="comments">Comments</label>
+							<textarea name="comments" id="comments" placeholder="Any additional information"></textarea>
+						</div>
+					</fieldset>
+					<div class="ui-grid-a">
+						<div class="ui-block-a"><input type="submit" value="Save Item" id="submit" data-theme="e"/></div>
+						<div class="ui-block-b"><input type="reset" value="Reset" id="reset" data-theme="a"/></div>
+					</div>
+				</form>
 			</div>
 		</section>
 	</body>
